@@ -10,12 +10,14 @@
       There are less complete projects over at my Github: <a href="https://github.com/jakecoffman">https://github.com/jakecoffman</a>
     </p>
 
-    <section v-for="project of projects" :key="project.title">
-      <h2>{{project.title}}</h2>
-      <div class="project">
+    <article class="cards">
+      <section v-for="project of projects" :key="project.title" class="card">
         <img class="p-img" :alt="project.title" :src="`../${project.image}`">
         <div class="project-text">
-          <span v-for="tag in project.tags" class="badge" :key="tag">{{tag}}</span>
+          <h2>{{project.title}}</h2>
+          <div class="badges">
+            <span v-for="tag in project.tags" class="badge" :key="tag">{{tag}}</span>
+          </div>
           <p>{{project.text}}</p>
           <ul class="links">
             <li v-for="link in project.links" :key="link.href">
@@ -23,8 +25,8 @@
             </li>
           </ul>
         </div>
-      </div>
-    </section>
+      </section>
+    </article>
 
   </article>
 </template>
@@ -191,25 +193,58 @@
     }
   }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
+  @import '../scss/_variables';
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .card {
+    width: 100%;
+    box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.2);
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background: #eeeeee;
+  }
+  @media (min-width: $breakpoint) {
+    .cards {
+      flex-direction: row;
+    }
+    .card {
+      width: 300px;
+      margin: 1rem;
+    }
+    .p-img {
+      height: 300px;
+    }
+  }
   .p-img {
-    box-shadow: 0 0 5px #888888;
-    border-radius: 200px;
-    max-width: 300px;
-    max-height: 300px;
+    object-fit: cover;
+    border-radius: 1rem 1rem 0 0;
+    width: 100%;
   }
   .badge {
     background: #2f2eff;
     color: white;
     border-radius: 5px;
-    padding: 5px;
-    margin: 5px;
+    padding: 4px;
+    margin: 4px;
+    font-size: small;
   }
   .project {
     display: flex;
   }
   .project-text {
     padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: end;
   }
   .links {
     display: flex;

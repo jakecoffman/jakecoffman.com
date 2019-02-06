@@ -6,15 +6,17 @@
     </header>
 
     <nav class="hide-small">
-      <div class="face">
-        <img alt="Jake Coffman" src="./assets/logo.png" class="logo">
-        <div class="facetext">
-          <em>Software Developer</em>
-          <span>Web, Android, Games</span>
+      <div class="nav-inners">
+        <div class="face">
+          <img alt="Jake Coffman" src="./assets/logo.png" class="logo">
+          <div class="facetext">
+            <em>Software Developer</em>
+            <span>Web, Android, Games</span>
+          </div>
         </div>
-      </div>
 
-      <my-nav/>
+        <my-nav/>
+      </div>
     </nav>
 
     <main class="backdrop-paper">
@@ -38,9 +40,7 @@
   }
 </script>
 <style lang="scss">
-  $primary: #259b24;
-  $accent: orange;
-  $breakpoint: 695px;
+  @import './scss/_variables';
 
   html, body {
     margin: 0;
@@ -123,12 +123,12 @@
 
   .face {
     display: flex;
-    justify-content: space-evenly;
-    padding: 0.5rem;
+    padding: 1rem;
     font-size: smaller;
   }
 
   .facetext {
+    padding-left: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -162,5 +162,9 @@
 
   .router-link-exact-active {
     color: $primary;
+  }
+
+  .nav-inners {
+    position: fixed;
   }
 </style>
