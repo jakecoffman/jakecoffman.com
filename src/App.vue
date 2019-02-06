@@ -1,10 +1,11 @@
 <template>
   <div id="app">
     <header>
-      jakecoffman.com
+      <span>jakecoffman.com</span>
+      <my-nav class="grow" mini="true"/>
     </header>
 
-    <nav>
+    <nav class="hide-small">
       <div class="face">
         <img alt="Jake Coffman" src="./assets/logo.png" class="logo">
         <div class="facetext">
@@ -13,47 +14,48 @@
         </div>
       </div>
 
-      <ul>
-        <li>
-          <router-link to="/">Intro</router-link>
-        </li>
-        <li>
-          <router-link to="/projects">Projects</router-link>
-        </li>
-        <li>
-          <router-link to="/qa">Q&A</router-link>
-        </li>
-        <li>
-          <a href="https://twitter.com/nill">@nill on Twitter</a>
-        </li>
-        <li>
-          <a href="https://github.com/jakecoffman">jakecoffman on Github</a>
-        </li>
-      </ul>
+      <my-nav/>
     </nav>
 
-    <main>
+    <main class="backdrop-paper">
       <router-view></router-view>
     </main>
+
+    <aside></aside>
 
     <footer>
       <a href="https://github.com/jakecoffman/jakecoffman.com">Fork me on Github</a>
     </footer>
   </div>
 </template>
+<script>
+  import MyNav from '@/components/MyNav'
 
+  export default {
+    components: {
+      MyNav
+    },
+  }
+</script>
 <style lang="scss">
-  $green: #259b24;
+  $primary: #259b24;
+  $accent: orange;
+  $breakpoint: 695px;
 
   html, body {
     margin: 0;
+  }
+
+  a, a :hover, a :visited {
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
   }
 
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: #2c3e50;
 
     display: grid;
     grid-template-rows: 40px auto 30px;
@@ -65,8 +67,19 @@
     grid-column-start: 1;
     grid-column-end: 3;
 
+    display: flex;
+    justify-content: space-between;
+    ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      li {
+        margin-left: 0.5rem;
+      }
+    }
 
-    background: $green;
+    background: $primary;
     color: white;
     padding: 0.5rem;
 
@@ -74,15 +87,38 @@
       text-decoration: none;
       color: white;
     }
+
+    .router-link-exact-active {
+      color: $accent;
+    }
   }
 
   nav {
+    padding-top: 2rem;
     background: #eeeeee;
+    ul {
+      list-style: none;
+      li {
+        padding-bottom: 1rem;
+      }
+    }
+    height: 100%;
+    transition: 1s;
+  }
+
+  @media (max-width: $breakpoint) {
+    #app {
+      grid-template-columns: 1fr;
+    }
+    .hide-small {
+      display: none;
+    }
   }
 
   main {
-    padding: 0.5rem;
+    padding: 1rem;
     font-size: large;
+    height: 100%;
   }
 
   .face {
@@ -106,5 +142,25 @@
     width: 64px;
     height: 64px;
     border-radius: 100%;
+  }
+
+  .backdrop-paper {
+    box-shadow: 0 1.5px 3px rgba(0, 0, 0, .24), 0 3px 8px rgba(0, 0, 0, .05)
+  }
+
+  h1 {
+    color: $primary;
+  }
+
+  h2 {
+    color: $primary;
+  }
+
+  h3 {
+    color: $primary;
+  }
+
+  .router-link-exact-active {
+    color: $primary;
   }
 </style>
