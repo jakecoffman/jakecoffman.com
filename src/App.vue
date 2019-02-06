@@ -52,6 +52,10 @@
     text-decoration: none;
   }
 
+  a :hover {
+    color: $accent;
+  }
+
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;

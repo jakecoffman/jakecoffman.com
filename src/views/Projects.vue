@@ -196,8 +196,7 @@
 <style lang="scss">
   @import '../scss/_variables';
   .cards {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
   }
   .card {
     width: 100%;
@@ -213,11 +212,8 @@
   }
   @media (min-width: $breakpoint) {
     .cards {
-      flex-direction: row;
-    }
-    .card {
-      width: 300px;
-      margin: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-gap: 1rem;
     }
     .p-img {
       height: 300px;
@@ -243,8 +239,8 @@
     padding: 0.5rem;
     display: flex;
     flex-direction: column;
+    height: 100%;
     justify-content: space-between;
-    align-items: end;
   }
   .links {
     display: flex;
