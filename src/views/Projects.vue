@@ -10,9 +10,11 @@
       There are less complete projects over at my Github: <a href="https://github.com/jakecoffman">https://github.com/jakecoffman</a>
     </p>
 
-    <article class="cards">
+    <div class="cards">
       <section v-for="project of projects" :key="project.title" class="card">
-        <img class="p-img" :alt="project.title" :src="`../${project.image}`">
+        <a :href="project.link">
+          <img class="p-img" :alt="project.title" :src="`../${project.image}`">
+        </a>
         <div class="project-text">
           <h2>{{project.title}}</h2>
           <div class="badges">
@@ -26,7 +28,7 @@
           </ul>
         </div>
       </section>
-    </article>
+    </div>
 
   </article>
 </template>
@@ -125,14 +127,13 @@
           }]
         }, {
           title: "Trusted Friend",
-          link: "https://play.google.com/store/apps/details?id:com.jakecoffman.trustedfriend",
+          link: "https://github.com/jakecoffman/trusted-friend",
           image: trustedfriend,
           tags: ["Android", "Java", "Go", "gRPC"],
           text: `Trusted Friend is an Android App that allows you and your closest friends to request
       each other's locations. You are notified when your location is requested, so it's not creepy.`,
-
           links: [{
-            href: "http://github.com/jakecoffman/trusted-friends",
+            href: "http://github.com/jakecoffman/trusted-friend",
             name: "Source"
           }]
         }, {
