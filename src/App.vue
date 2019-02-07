@@ -62,7 +62,7 @@
     -moz-osx-font-smoothing: grayscale;
 
     display: grid;
-    grid-template-rows: 40px auto 30px;
+    grid-template-rows: 2rem 1fr 2rem;
     grid-template-columns: 262px 1fr;
     height: 100vh;
   }
