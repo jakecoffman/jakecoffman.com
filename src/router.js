@@ -30,7 +30,7 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ './views/QA.vue')
     }
   ],
-  scrollBehavior (to, from, savedPosition) {
+  scrollBehavior () {
     return { x: 0, y: 0 }
   }
 })

@@ -10,8 +10,16 @@
       There are less complete projects over at my Github: <a href="https://github.com/jakecoffman">https://github.com/jakecoffman</a>
     </p>
 
-    <div class="cards">
-      <section v-for="project of projects" :key="project.title" class="card">
+    Filters:
+    <div class="badges">
+      <button v-for="(tag, index) of tags" class="badge" :key="index" @click="toggleFilter(tag)">
+        {{tag}}
+      </button>
+      <button v-if="filters.length > 0" @click="filters.splice(0, filters.length)" class="badge">Clear filters</button>
+    </div>
+
+    <transition-group class="cards" name="list">
+      <section v-for="project of filteredProjects" :key="project.title" class="card list-item">
         <a :href="project.link">
           <img class="p-img" :alt="project.title" :src="`../${project.image}`">
         </a>
@@ -28,7 +36,7 @@
           </ul>
         </div>
       </section>
-    </div>
+    </transition-group>
 
   </article>
 </template>
@@ -46,8 +54,33 @@
   import tutorials from '@/assets/tutorials.png'
 
   export default {
+    computed: {
+      tags() {
+        const t = new Set()
+        this.projects.forEach(p => t.add(...p.tags))
+        return Array.from(t)
+      },
+      filteredProjects() {
+        if (this.filters.length === 0) {
+          return this.projects
+        }
+        return this.projects.filter(p => p.tags.some(t => this.filters.includes(t)))
+      }
+    },
+    methods: {
+      toggleFilter(tag) {
+        const i = this.filters.indexOf(tag)
+
+        if (i >= 0) {
+          this.filters.splice(i, 1)
+        } else {
+          this.filters.push(tag)
+        }
+      }
+    },
     data() {
       return {
+        filters: [],
         projects: [{
           title: "STL Devs",
           link: "https://stldevs.com",
@@ -248,5 +281,16 @@
     > * {
       margin-left: 2rem;
     }
+  }
+
+  .list-item {
+    transition: all 0.5s;
+  }
+  .list-enter, .list-leave-to {
+    transform: translateY(30px);
+  }
+  .list-leave-active {
+    position: absolute;
+    width: 300px;
   }
 </style>
