@@ -10,12 +10,14 @@
       There are less complete projects over at my Github: <a href="https://github.com/jakecoffman">https://github.com/jakecoffman</a>
     </p>
 
-    Filters:
-    <div class="badges">
-      <button v-for="(tag, index) of tags" class="badge" :key="index" @click="toggleFilter(tag)">
-        {{tag}}
-      </button>
-      <button v-if="filters.length > 0" @click="filters.splice(0, filters.length)" class="badge">Clear filters</button>
+    <div class="filters" v-if="filters.length > 0">
+      Active filters:
+      <div class="badges">
+        <button v-for="(tag, index) of filters" class="badge" :key="index" @click="toggleFilter(tag)">
+          {{tag}}
+        </button>
+        <button v-if="filters.length > 0" @click="filters.splice(0, filters.length)" class="badge">Clear filters</button>
+      </div>
     </div>
 
     <transition-group class="cards" name="list">
@@ -26,9 +28,9 @@
         <div class="project-text">
           <h2>{{project.title}}</h2>
           <div class="badges">
-            <span v-for="tag in project.tags" class="badge" :key="tag">{{tag}}</span>
+            <button v-for="tag in project.tags" class="badge" :key="tag" @click="toggleFilter(tag)">{{tag}}</button>
           </div>
-          <p>{{project.text}}</p>
+          <p class="grow">{{project.text}}</p>
           <ul class="links">
             <li v-for="link in project.links" :key="link.href">
               <a :href="link.href" target="_blank">{{link.name}}</a>
@@ -182,7 +184,7 @@
           }]
         }, {
 
-          title: "Arduino Security System",
+          title: "Arduino Security",
           link: "http://youtu.be/lfOxgK1-5HM",
           image: arduino,
           tags: ["C", "Arduino", "Embedded"],
@@ -217,10 +219,10 @@
 
           links: [{
             href: "https://www.youtube.com/playlist?list=PL0DA14EB3618A3507",
-            name: "Flask Tutorial"
+            name: "Flask"
           }, {
             href: "https://www.youtube.com/playlist?list=PLXbwrYvH4U89KwOnk79AA8j-s2nmDbWDk",
-            name: "Go/Angular Tutorial"
+            name: "Go/Angular"
           }]
         }]
       }
@@ -229,20 +231,23 @@
 </script>
 <style lang="scss">
   @import '../scss/_variables';
+  $roundness: .25rem;
   .cards {
     display: grid;
   }
   .card {
     width: 100%;
     box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.2);
-    border-radius: 1rem;
+    border-radius: $roundness;
     margin-bottom: 1rem;
-    transition: 0.3s;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background: #eeeeee;
+    h2 {
+      margin: .5rem;
+      margin-left: 0;
+    }
   }
   @media (min-width: $breakpoint) {
     .cards {
@@ -255,7 +260,7 @@
   }
   .p-img {
     object-fit: cover;
-    border-radius: 1rem 1rem 0 0;
+    border-radius: $roundness $roundness 0 0;
     width: 100%;
   }
   .badge {
@@ -265,6 +270,8 @@
     padding: 4px;
     margin: 4px;
     font-size: small;
+    border: none;
+    cursor: pointer;
   }
   .project {
     display: flex;
@@ -278,19 +285,29 @@
   }
   .links {
     display: flex;
-    > * {
-      margin-left: 2rem;
+    justify-content: space-evenly;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    a {
+      color: $primary;
     }
   }
 
   .list-item {
     transition: all 0.5s;
+    opacity: 1;
   }
   .list-enter, .list-leave-to {
     transform: translateY(30px);
+    transform: translateX(30px);
+    opacity: 0;
   }
   .list-leave-active {
     position: absolute;
-    width: 300px;
+  }
+
+  .filters {
+    padding: 1rem;
   }
 </style>

@@ -171,4 +171,8 @@
   .nav-inners {
     position: fixed;
   }
+
+  .grow {
+    flex-grow: 1;
+  }
 </style>
