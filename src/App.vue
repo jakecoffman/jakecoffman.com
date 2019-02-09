@@ -2,7 +2,8 @@
   <div id="app">
     <header>
       <span>jakecoffman.com</span>
-      <my-nav class="grow" mini="true"/>
+      <div class="grow"/>
+      <my-nav mini="true"/>
     </header>
 
     <nav class="hide-small">
