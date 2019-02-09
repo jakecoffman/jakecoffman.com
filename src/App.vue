@@ -21,7 +21,9 @@
     </nav>
 
     <main class="backdrop-paper">
-      <router-view></router-view>
+      <transition name="page" mode="out-in">
+        <router-view></router-view>
+      </transition>
     </main>
 
     <aside></aside>
@@ -176,4 +178,15 @@
   .grow {
     flex-grow: 1;
   }
+
+  .page-enter-active, .page-leave-active {
+    transition-duration: 0.1s;
+    transition-property: opacity;
+    transition-timing-function: ease;
+  }
+
+  .page-enter, .page-leave-active {
+    opacity: 0
+  }
+
 </style>
